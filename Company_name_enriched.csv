@@ -1,0 +1,14 @@
+Unnamed: 0,Facility,Industry,Factory Name,Address,City,Zipcode,Latitude,Longitude,Company name,Enhanced Company Name,Official Website
+0,Reworld Dade,Chemical,Miami Dade County Resource Recovery Facility,Northwest 97th Avenue,Miami,33178,25.8360987,-80.3562754,Miami-Dade County,Miami,http://www.ci.miami.fl.us/
+1,Reworld Dade,Chemical,Flagler Station,,,,25.8626335,-80.3792071,Florida Power & Light,Florida Power &amp; Light,http://www.fpl.com/
+2,Reworld Dade,CPG,Sedanos,,,,25.8249659,-80.3716769,Sedano's Supermarkets,"Sedano's Management, Inc.",N/A
+3,Reworld Dade,CPG,Publix,Northwest 58th Street,Doral,33178,25.8273191,-80.371215,"Publix Super Markets, Inc.",Publix,N/A
+4,Reworld Dade,CPG,Publix,Northwest 104th Avenue,Doral,33178,25.8426208,-80.3696477,"Publix Super Markets, Inc.",Publix,N/A
+5,Reworld Dade,CPG,ALDI,Northwest 105th Court,Doral,33178,25.8268591,-80.3682458,ALDI,Aldi,http://www.aldi.com/
+6,Reworld Dade,CPG,Publix,Northwest 53rd Terrace,Doral,33166,25.8220573,-80.3351484,"Publix Super Markets, Inc.",Publix,N/A
+7,Reworld Dade,CPG,TJ Maxx,Northwest 104th Avenue,Doral,33178,25.8420824,-80.3672409,TJX Companies,TJX Companies,http://www.tjx.com
+8,Reworld Palm Beach 1,Chemical,WPBF Junk Cars,Village Blvd,West Palm Beach,33407,26.7622482,-80.0988289,,,
+9,Reworld Palm Beach 1,Chemical,FPL,,,,26.7680204,-80.0968311,NextEra Energy,NextEra Energy,http://www.nexteraenergy.com
+10,Reworld Palm Beach 1,Chemical,Palm Beach Renewable Energy Facility 2,North Jog Road,West Palm Beach,33412,26.7729943,-80.1419174,Covanta,Reworld,http://www.covantaenergy.com
+11,Reworld Palm Beach 1,CPG,Publix,North Haverhill Road,West Palm Beach,33417-7434,26.7375327,-80.1196384,"Publix Super Markets, Inc.",Publix,N/A
+12,Reworld Palm Beach 1,CPG,Walmart Supercenter,45th Street,West Palm Beach,33407,26.7621313,-80.103134,Walmart Inc.,Walmart,http://www.walmart.com/

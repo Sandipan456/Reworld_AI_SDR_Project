@@ -1,0 +1,14 @@
+Facility,Industry,Factory Name,Address,City,Zipcode,Latitude,Longitude,Company name,Enhanced Company Name,Official Website,Revenue,Revenue_printed,address,city,state,postal_code,country,ownedby_org,employee_count
+Reworld Dade,Chemical,Miami Dade County Resource Recovery Facility,Northwest 97th Avenue,Miami,33178,25.8360987,-80.3562754,Miami-Dade County,Miami,http://www.ci.miami.fl.us/,,,"1745 north bayshore drive, miami, fl, united states",Miami,Florida,33132-1181,United States,,1
+Reworld Dade,Chemical,Flagler Station,,,,25.8626335,-80.3792071,Florida Power & Light,Florida Power &amp; Light,http://www.fpl.com/,17282000000,17.3B,"700 Universe Boulevard, Juno Beach, FL 33408, US",North Palm Beach,Florida,33408,United States,"{'name': 'NextEra Energy Resources', 'website_url': 'http://www.nexteraenergyresources.com'}",7600
+Reworld Dade,CPG,Sedanos,,,,25.8249659,-80.3716769,Sedano's Supermarkets,"Sedano's Management, Inc.",,,,,,,,,,
+Reworld Dade,CPG,Publix,Northwest 58th Street,Doral,33178,25.8273191,-80.371215,"Publix Super Markets, Inc.",Publix,,,,,,,,,,
+Reworld Dade,CPG,Publix,Northwest 104th Avenue,Doral,33178,25.8426208,-80.3696477,"Publix Super Markets, Inc.",Publix,,,,,,,,,,
+Reworld Dade,CPG,ALDI,Northwest 105th Court,Doral,33178,25.8268591,-80.3682458,ALDI,Aldi,http://www.aldi.com/,1.2E+11,120B,"Eckenbergstrasse 16b, Essen, North Rhine-Westphalia, DE, 31808",Essen,North Rhine-Westphalia,,Germany,,3
+Reworld Dade,CPG,Publix,Northwest 53rd Terrace,Doral,33166,25.8220573,-80.3351484,"Publix Super Markets, Inc.",Publix,,,,,,,,,,
+Reworld Dade,CPG,TJ Maxx,Northwest 104th Avenue,Doral,33178,25.8420824,-80.3672409,TJX Companies,TJX Companies,http://www.tjx.com,56992000000,57.0B,"770 Cochituate Road, Framingham, MA 01701, US",Framingham,Massachusetts,01701,United States,,364000
+Reworld Palm Beach 1,Chemical,WPBF Junk Cars,Village Blvd,West Palm Beach,33407,26.7622482,-80.0988289,,,,,,,,,,,,
+Reworld Palm Beach 1,Chemical,FPL,,,,26.7680204,-80.0968311,NextEra Energy,NextEra Energy,http://www.nexteraenergy.com,25268000000,25.3B,"700 Universe Boulevard, Juno Beach, FL 33408, US",North Palm Beach,Florida,33408,United States,,17000
+Reworld Palm Beach 1,Chemical,Palm Beach Renewable Energy Facility 2,North Jog Road,West Palm Beach,33412,26.7729943,-80.1419174,Covanta,Reworld,http://www.covantaenergy.com,,,,,,,,,
+Reworld Palm Beach 1,CPG,Publix,North Haverhill Road,West Palm Beach,33417-7434,26.7375327,-80.1196384,"Publix Super Markets, Inc.",Publix,,,,,,,,,,
+Reworld Palm Beach 1,CPG,Walmart Supercenter,45th Street,West Palm Beach,33407,26.7621313,-80.103134,Walmart Inc.,Walmart,http://www.walmart.com/,6.85086E+11,685.1B,"702 SW 8th St, Bentonville, Arkansas 72712, US",Bentonville,Arkansas,72716,United States,,2100000

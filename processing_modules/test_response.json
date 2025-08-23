@@ -1,0 +1,263 @@
+{
+  "organization": {
+    "id": "5f4864f9d1944f0001056356",
+    "name": "Florida Power & Light",
+    "website_url": "http://www.fpl.com",
+    "blog_url": null,
+    "angellist_url": null,
+    "linkedin_url": "http://www.linkedin.com/company/fpl",
+    "twitter_url": "https://twitter.com/insidefpl",
+    "facebook_url": "https://facebook.com/fplconnect",
+    "primary_phone": {
+      "number": "+1 561-694-4697",
+      "source": "Owler",
+      "sanitized_number": "+15616944697"
+    },
+    "languages": [
+      "English",
+      "Spanish"
+    ],
+    "alexa_ranking": 14299,
+    "phone": "+1 561-694-4697",
+    "linkedin_uid": "163886",
+    "founded_year": 1925,
+    "publicly_traded_symbol": null,
+    "publicly_traded_exchange": null,
+    "logo_url": "https://zenprospect-production.s3.amazonaws.com/uploads/pictures/68a317518d977000014e35e9/picture",
+    "crunchbase_url": null,
+    "primary_domain": "fpl.com",
+    "sanitized_phone": "+15616944697",
+    "industry": "utilities",
+    "estimated_num_employees": 7600,
+    "keywords": [
+      "solar energy",
+      "distribution",
+      "energy infrastructure",
+      "electric power generation, transmission and distribution",
+      "utilities",
+      "power outage management",
+      "clean energy initiatives",
+      "smart grid",
+      "energy innovation",
+      "battery storage",
+      "power infrastructure",
+      "energy technology",
+      "energy management",
+      "power transmission",
+      "sustainable energy",
+      "electric grid",
+      "renewable energy projects",
+      "energy efficiency programs",
+      "reliability",
+      "energy savings programs",
+      "energy sustainability",
+      "clean energy",
+      "power reliability",
+      "smart meters",
+      "renewable energy",
+      "power generation",
+      "battery storage solutions",
+      "power plant upgrades",
+      "natural gas",
+      "energy reliability",
+      "climate resilience",
+      "energy efficiency",
+      "battery storage technology",
+      "power outage management systems",
+      "florida energy",
+      "power grid",
+      "energy conservation",
+      "transmission",
+      "cost efficiency",
+      "power grid technology",
+      "customer service",
+      "nuclear power plant",
+      "climate resilience infrastructure",
+      "power reliability solutions",
+      "power grid modernization",
+      "battery storage systems",
+      "nuclear power",
+      "renewable energy integration",
+      "energy conservation measures",
+      "solar energy projects",
+      "solar power",
+      "energy portfolio",
+      "customer energy management",
+      "nuclear energy",
+      "electric utility",
+      "grid modernization",
+      "natural gas power",
+      "nuclear reactor technology",
+      "sustainability",
+      "high voltage lines",
+      "power plants",
+      "electricity generation",
+      "power outage response",
+      "power plant operation",
+      "power distribution",
+      "power system reliability",
+      "smart grid technology",
+      "solar farm development",
+      "b2c",
+      "services",
+      "clean energy & technology",
+      "environmental services",
+      "renewables & environment",
+      "oil & energy"
+    ],
+    "organization_revenue_printed": "17.3B",
+    "organization_revenue": 17282000000,
+    "industries": [
+      "utilities"
+    ],
+    "secondary_industries": [],
+    "snippets_loaded": true,
+    "industry_tag_id": "5567e2127369642420170000",
+    "industry_tag_hash": {
+      "utilities": "5567e2127369642420170000"
+    },
+    "retail_location_count": 0,
+    "raw_address": "700 Universe Boulevard, Juno Beach, FL 33408, US",
+    "street_address": "700 Universe Boulevard",
+    "city": "North Palm Beach",
+    "state": "Florida",
+    "postal_code": "33408",
+    "country": "United States",
+    "owned_by_organization_id": "5ed375e722b18001587225c2",
+    "owned_by_organization": {
+      "id": "5ed375e722b18001587225c2",
+      "name": "NextEra Energy Resources",
+      "website_url": "http://www.nexteraenergyresources.com"
+    },
+    "short_description": "Florida Power & Light (FPL) is a leading electric utility company based in Juno Beach, Florida, and a subsidiary of NextEra Energy, Inc. Established in 1925, FPL has grown to become the largest electric utility in the U.S., serving over 6 million customer accounts, which equates to approximately 12 million people.\n\nFPL is recognized for its fuel-efficient and clean power generation fleet, utilizing a mix of traditional and renewable energy sources, including solar and battery storage. The company is committed to reliability and innovation, having received the ReliabilityOne® National Reliability Award multiple times. FPL also offers energy efficiency programs to help customers reduce consumption and invests in smart grid technology to enhance service reliability and resilience. Its customer base includes residential, commercial, and industrial clients across Florida, with a focus on affordability and quality service.",
+    "suborganizations": [],
+    "num_suborganizations": 0,
+    "annual_revenue_printed": "17.3B",
+    "annual_revenue": 17282000000,
+    "total_funding": 12500000,
+    "total_funding_printed": "12.5M",
+    "latest_funding_round_date": "2018-02-08T00:00:00.000+00:00",
+    "latest_funding_stage": "Private Equity",
+    "funding_events": [
+      {
+        "id": "5a7d390da6da980a56f8be7f",
+        "date": "2018-02-08T00:00:00.000+00:00",
+        "news_url": "http://www.finsmes.com/2018/02/renewable-properties-secures-12-5m-in-funding.html",
+        "type": "Private Equity",
+        "investors": "New Energy Capital",
+        "amount": "12.5M",
+        "currency": "$"
+      }
+    ],
+    "technology_names": [
+      "AWS SDK for JavaScript",
+      "Adobe CQ",
+      "Adobe Marketing Cloud",
+      "Amazon CloudFront",
+      "Atlassian Cloud",
+      "Microsoft Office 365",
+      "Omniture (Adobe)",
+      "Outlook",
+      "Remote",
+      "Route 53",
+      "Salesforce",
+      "The Trade Desk",
+      "VueJS"
+    ],
+    "current_technologies": [
+      {
+        "uid": "aws_sdk_for_javascript",
+        "name": "AWS SDK for JavaScript",
+        "category": "CSS and JavaScript Libraries"
+      },
+      {
+        "uid": "adobe_cq",
+        "name": "Adobe CQ",
+        "category": "CMS"
+      },
+      {
+        "uid": "adobe_marketing_cloud",
+        "name": "Adobe Marketing Cloud",
+        "category": "Search Marketing"
+      },
+      {
+        "uid": "amazon_cloudfront",
+        "name": "Amazon CloudFront",
+        "category": "Content Delivery Networks"
+      },
+      {
+        "uid": "atlassian_cloud",
+        "name": "Atlassian Cloud",
+        "category": "CMS"
+      },
+      {
+        "uid": "office_365",
+        "name": "Microsoft Office 365",
+        "category": "Other"
+      },
+      {
+        "uid": "omniture_adobe",
+        "name": "Omniture (Adobe)",
+        "category": "Analytics and Tracking"
+      },
+      {
+        "uid": "outlook",
+        "name": "Outlook",
+        "category": "Email Providers"
+      },
+      {
+        "uid": "remote",
+        "name": "Remote",
+        "category": "Other"
+      },
+      {
+        "uid": "route_53",
+        "name": "Route 53",
+        "category": "Domain Name Services"
+      },
+      {
+        "uid": "salesforce",
+        "name": "Salesforce",
+        "category": "Customer Relationship Management"
+      },
+      {
+        "uid": "the_trade_desk",
+        "name": "The Trade Desk",
+        "category": "Demand Side Platforms"
+      },
+      {
+        "uid": "vue_js_library",
+        "name": "VueJS",
+        "category": "CSS and JavaScript Libraries"
+      }
+    ],
+    "org_chart_root_people_ids": [
+      "645ece949d0988000160d73d"
+    ],
+    "org_chart_sector": null,
+    "org_chart_removed": null,
+    "org_chart_show_department_filter": null,
+    "departmental_head_count": {
+      "accounting": 73,
+      "sales": 42,
+      "operations": 236,
+      "education": 198,
+      "engineering": 1049,
+      "information_technology": 448,
+      "administrative": 96,
+      "arts_and_design": 19,
+      "consulting": 79,
+      "media_and_commmunication": 66,
+      "business_development": 319,
+      "human_resources": 51,
+      "finance": 67,
+      "marketing": 31,
+      "support": 141,
+      "legal": 36,
+      "data_science": 27,
+      "product_management": 8,
+      "entrepreneurship": 0
+    },
+    "generic_org_insights": null
+  }
+}
