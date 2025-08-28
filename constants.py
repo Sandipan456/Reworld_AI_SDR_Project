@@ -47,3 +47,17 @@ industry_tag_dict = {
         "plant=machinery", "craft=metal_construction"
     ]
 }
+
+
+
+"""
+[out:json][timeout:25];
+        (
+          node["industrial"~"chemical|manufacture|plastic"](${bbox.south},${bbox.west},${bbox.north},${bbox.east});
+          way["industrial"~"chemical|manufacture|plastic"](${bbox.south},${bbox.west},${bbox.north},${bbox.east});
+          relation["industrial"~"chemical|manufacture|plastic"](${bbox.south},${bbox.west},${bbox.north},${bbox.east});
+        );
+        out center;
+        `;
+
+"""

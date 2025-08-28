@@ -1,0 +1,157 @@
+Unnamed: 0,Facility,Industry,Factory Name,Address,City,Zipcode,Latitude,Longitude,Tags Used,Company name,Enhanced Company Name,Official Website
+0,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: chemical|product: chemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+1,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: chemical|product: chemicals,,,
+2,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: chemical|product: chemicals,,,
+3,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: chemical|product: chemicals,Vopak,Vopak,http://www.vopak.com/
+4,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: chemical|product: chemicals,Koch Industries,Koch,http://kochind.com
+5,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: chemical|product: chemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+6,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: chemical|product: chemicals,,,
+7,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: chemical|product: chemicals,,,
+8,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: chemical|product: chemicals,,,
+9,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: chemical|product: chemicals,,,
+10,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: chemical|product: chemicals,,,
+11,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: chemical|product: chemicals,,,
+12,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: chemical|product: chemicals,,,
+13,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: chemical|product: chemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A
+14,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: chemical|product: petrochemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+15,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: chemical|product: petrochemicals,,,
+16,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: chemical|product: petrochemicals,,,
+17,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: chemical|product: petrochemicals,Vopak,Vopak,http://www.vopak.com/
+18,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: chemical|product: petrochemicals,Koch Industries,Koch,http://kochind.com
+19,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: chemical|product: petrochemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+20,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: chemical|product: petrochemicals,,,
+21,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: chemical|product: petrochemicals,,,
+22,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: chemical|product: petrochemicals,,,
+23,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: chemical|product: petrochemicals,,,
+24,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: chemical|product: petrochemicals,,,
+25,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: chemical|product: petrochemicals,,,
+26,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: chemical|product: petrochemicals,,,
+27,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: chemical|product: petrochemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A
+28,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: refinery|product: chemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+29,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: refinery|product: chemicals,,,
+30,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: refinery|product: chemicals,,,
+31,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: refinery|product: chemicals,Vopak,Vopak,http://www.vopak.com/
+32,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: refinery|product: chemicals,Koch Industries,Koch,http://kochind.com
+33,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: refinery|product: chemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+34,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: refinery|product: chemicals,,,
+35,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: refinery|product: chemicals,,,
+36,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: refinery|product: chemicals,,,
+37,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: refinery|product: chemicals,,,
+38,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: refinery|product: chemicals,,,
+39,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: refinery|product: chemicals,,,
+40,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: refinery|product: chemicals,,,
+41,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: refinery|product: chemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A
+42,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: refinery|product: petrochemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+43,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: refinery|product: petrochemicals,,,
+44,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: refinery|product: petrochemicals,,,
+45,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: refinery|product: petrochemicals,Vopak,Vopak,http://www.vopak.com/
+46,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: refinery|product: petrochemicals,Koch Industries,Koch,http://kochind.com
+47,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: refinery|product: petrochemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+48,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: refinery|product: petrochemicals,,,
+49,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: refinery|product: petrochemicals,,,
+50,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: refinery|product: petrochemicals,,,
+51,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: refinery|product: petrochemicals,,,
+52,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: refinery|product: petrochemicals,,,
+53,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: refinery|product: petrochemicals,,,
+54,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: refinery|product: petrochemicals,,,
+55,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: refinery|product: petrochemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A
+56,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: petroleum_terminal|product: chemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+57,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: petroleum_terminal|product: chemicals,,,
+58,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: petroleum_terminal|product: chemicals,,,
+59,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: petroleum_terminal|product: chemicals,Vopak,Vopak,http://www.vopak.com/
+60,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: petroleum_terminal|product: chemicals,Koch Industries,Koch,http://kochind.com
+61,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: petroleum_terminal|product: chemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+62,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: petroleum_terminal|product: chemicals,,,
+63,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: petroleum_terminal|product: chemicals,,,
+64,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: petroleum_terminal|product: chemicals,,,
+65,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: petroleum_terminal|product: chemicals,,,
+66,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: petroleum_terminal|product: chemicals,,,
+67,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: petroleum_terminal|product: chemicals,,,
+68,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: petroleum_terminal|product: chemicals,,,
+69,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: petroleum_terminal|product: chemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A
+70,Reworld X,Chemical,Oiltanking Houston,,,,29.7432291,-95.1271656,industrial: petroleum_terminal|product: chemicals,Oiltanking GmbH,Oiltanking,N/A
+71,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: petroleum_terminal|product: petrochemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+72,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: petroleum_terminal|product: petrochemicals,,,
+73,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: petroleum_terminal|product: petrochemicals,,,
+74,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: petroleum_terminal|product: petrochemicals,Vopak,Vopak,http://www.vopak.com/
+75,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: petroleum_terminal|product: petrochemicals,Koch Industries,Koch,http://kochind.com
+76,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: petroleum_terminal|product: petrochemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+77,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: petroleum_terminal|product: petrochemicals,,,
+78,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: petroleum_terminal|product: petrochemicals,,,
+79,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: petroleum_terminal|product: petrochemicals,,,
+80,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: petroleum_terminal|product: petrochemicals,,,
+81,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: petroleum_terminal|product: petrochemicals,,,
+82,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: petroleum_terminal|product: petrochemicals,,,
+83,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: petroleum_terminal|product: petrochemicals,,,
+84,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: petroleum_terminal|product: petrochemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A
+85,Reworld X,Chemical,Oiltanking Houston,,,,29.7432291,-95.1271656,industrial: petroleum_terminal|product: petrochemicals,Oiltanking GmbH,Oiltanking,N/A
+86,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: gas_plant|product: chemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+87,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: gas_plant|product: chemicals,,,
+88,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: gas_plant|product: chemicals,,,
+89,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: gas_plant|product: chemicals,Vopak,Vopak,http://www.vopak.com/
+90,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: gas_plant|product: chemicals,Koch Industries,Koch,http://kochind.com
+91,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: gas_plant|product: chemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+92,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: gas_plant|product: chemicals,,,
+93,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: gas_plant|product: chemicals,,,
+94,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: gas_plant|product: chemicals,,,
+95,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: gas_plant|product: chemicals,,,
+96,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: gas_plant|product: chemicals,,,
+97,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: gas_plant|product: chemicals,,,
+98,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: gas_plant|product: chemicals,,,
+99,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: gas_plant|product: chemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A
+100,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: gas_plant|product: petrochemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+101,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: gas_plant|product: petrochemicals,,,
+102,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: gas_plant|product: petrochemicals,,,
+103,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: gas_plant|product: petrochemicals,Vopak,Vopak,http://www.vopak.com/
+104,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: gas_plant|product: petrochemicals,Koch Industries,Koch,http://kochind.com
+105,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: gas_plant|product: petrochemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+106,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: gas_plant|product: petrochemicals,,,
+107,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: gas_plant|product: petrochemicals,,,
+108,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: gas_plant|product: petrochemicals,,,
+109,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: gas_plant|product: petrochemicals,,,
+110,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: gas_plant|product: petrochemicals,,,
+111,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: gas_plant|product: petrochemicals,,,
+112,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: gas_plant|product: petrochemicals,,,
+113,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: gas_plant|product: petrochemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A
+114,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: gas_storage|product: petrochemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+115,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: gas_storage|product: petrochemicals,,,
+116,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: gas_storage|product: petrochemicals,,,
+117,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: gas_storage|product: petrochemicals,Vopak,Vopak,http://www.vopak.com/
+118,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: gas_storage|product: petrochemicals,Koch Industries,Koch,http://kochind.com
+119,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: gas_storage|product: petrochemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+120,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: gas_storage|product: petrochemicals,,,
+121,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: gas_storage|product: petrochemicals,,,
+122,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: gas_storage|product: petrochemicals,,,
+123,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: gas_storage|product: petrochemicals,,,
+124,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: gas_storage|product: petrochemicals,,,
+125,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: gas_storage|product: petrochemicals,,,
+126,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: gas_storage|product: petrochemicals,,,
+127,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: gas_storage|product: petrochemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A
+128,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: oil_mill|product: chemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+129,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: oil_mill|product: chemicals,,,
+130,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: oil_mill|product: chemicals,,,
+131,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: oil_mill|product: chemicals,Vopak,Vopak,http://www.vopak.com/
+132,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: oil_mill|product: chemicals,Koch Industries,Koch,http://kochind.com
+133,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: oil_mill|product: chemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+134,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: oil_mill|product: chemicals,,,
+135,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: oil_mill|product: chemicals,,,
+136,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: oil_mill|product: chemicals,,,
+137,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: oil_mill|product: chemicals,,,
+138,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: oil_mill|product: chemicals,,,
+139,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: oil_mill|product: chemicals,,,
+140,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: oil_mill|product: chemicals,,,
+141,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: oil_mill|product: chemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A
+142,Reworld X,Chemical,Blue Bell Creameries Complex,,,,30.166605,-96.390244,industrial: oil_mill|product: petrochemicals,Blue Bell Creameries,Blue Bell Creameries,http://www.bluebell.com
+143,Reworld X,Chemical,Lyondell-Citgo Houston Refinery,,,,29.7132411,-95.2350266,industrial: oil_mill|product: petrochemicals,,,
+144,Reworld X,Chemical,Prado Protective Coatings,,,,29.751588,-95.303219,industrial: oil_mill|product: petrochemicals,,,
+145,Reworld X,Chemical,Vopak Terminal Deer Park,,,,29.745,-95.094167,industrial: oil_mill|product: petrochemicals,Vopak,Vopak,http://www.vopak.com/
+146,Reworld X,Chemical,KOCH MATERIALS BAYTOWN,,,,29.7296872,-95.0007356,industrial: oil_mill|product: petrochemicals,Koch Industries,Koch,http://kochind.com
+147,Reworld X,Chemical,Vahle,Cane Island Parkway,Katy,77494.0,29.7837127,-95.8500697,industrial: oil_mill|product: petrochemicals,Vahle,Paul Vahle GmbH &amp; Co. KG,N/A
+148,Reworld X,Chemical,Nets of Texas,,,,30.024846,-95.8407969,industrial: oil_mill|product: petrochemicals,,,
+149,Reworld X,Chemical,Ram Alloys,Spencer Road,Houston,77041.0,29.875516,-95.5935416,industrial: oil_mill|product: petrochemicals,,,
+150,Reworld X,Chemical,HoustonPoly,Holderrieth Road,Tomball,77375.0,30.0689506,-95.5960311,industrial: oil_mill|product: petrochemicals,,,
+151,Reworld X,Chemical,Wood Preserving Plant,Hartwick Road,Houston,77093.0,29.8865456,-95.3092718,industrial: oil_mill|product: petrochemicals,,,
+152,Reworld X,Chemical,NEVA  Corporation,Brittmoore Park Drive,Houston,77041.0,29.8484175,-95.5810602,industrial: oil_mill|product: petrochemicals,,,
+153,Reworld X,Chemical,Kennedy Fabrication,,,,30.255878,-95.1414475,industrial: oil_mill|product: petrochemicals,,,
+154,Reworld X,Chemical,Dixie Used Auto Parts,,,,30.1358542,-95.2186796,industrial: oil_mill|product: petrochemicals,,,
+155,Reworld X,Chemical,Ply-Gem,West Carson Street,Bryan,77802.0,30.6442343,-96.3716631,industrial: oil_mill|product: petrochemicals,Cornerstone Building Brands,Cornerstone Building Brands,N/A

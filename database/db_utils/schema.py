@@ -111,7 +111,33 @@ CREATE TABLE IF NOT EXISTS tri_facilities (
 );
 
 """
+OSM_Enhanced_Data = \
+"""
+CREATE TABLE IF NOT EXISTS OSM_enhanced_data (
+    facility TEXT,
+    industry TEXT,
+    factory_name TEXT PRIMARY KEY,
+    address_osm TEXT,
+    city_osm TEXT,
+    zipcode_osm TEXT,
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION,
+    tags_used TEXT,
+    company_name TEXT,
+    enhanced_company_name TEXT,
+    official_website TEXT,
+    revenue BIGINT,
+    revenue_printed TEXT,
+    hq_address TEXT,
+    hq_city TEXT,
+    hq_state TEXT,
+    hq_postal_code TEXT,
+    hq_country TEXT,
+    owned_by_org JSONB,
+    employee_count INTEGER
+);
 
+"""
 
 
 def create_tables():
@@ -122,6 +148,7 @@ def create_tables():
     cur.execute(HIFLD_landfills)
     cur.execute(RCRA_DATA)
     cur.execute(TRI_DATA)
+    cur.execute(OSM_Enhanced_Data)
 
     conn.commit()
     cur.close()
