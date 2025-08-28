@@ -1,0 +1,128 @@
+from database.db_utils.connection import get_connection
+
+facility_table = \
+"""
+CREATE TABLE IF NOT EXISTS facilities (
+    REGISTRY_ID BIGINT PRIMARY KEY,
+    FAC_NAME TEXT,
+    FAC_STREET TEXT,
+    FAC_CITY TEXT,
+    FAC_STATE VARCHAR(2),
+    FAC_ZIP TEXT,
+    FAC_COUNTY TEXT,
+    FAC_FIPS_CODE TEXT,
+    FAC_LAT DOUBLE PRECISION,
+    FAC_LONG DOUBLE PRECISION,
+    FAC_NAICS_CODES TEXT,
+    FAC_SIC_CODES TEXT,
+    AIR_FLAG CHAR(1),
+    RCRA_FLAG CHAR(1),
+    TRI_FLAG CHAR(1),
+    SDWIS_FLAG CHAR(1),
+    GHG_FLAG CHAR(1),
+    AIR_IDS TEXT,
+    NPDES_IDS TEXT,
+    RCRA_IDS TEXT,
+    TRI_IDS TEXT,
+    SDWA_IDS TEXT,
+    GHG_IDS TEXT
+);
+"""
+
+
+HIFLD_landfills = \
+"""
+CREATE TABLE IF NOT EXISTS HIFLD_landfills (
+    swid TEXT PRIMARY KEY,
+    name TEXT,
+    address TEXT,
+    city TEXT,
+    state VARCHAR(2),
+    zip TEXT,
+    telephone TEXT,
+    country TEXT,
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION,
+    naics_code TEXT,
+    naics_desc TEXT,
+    owner TEXT,
+    permit_no TEXT,
+    type TEXT
+);
+"""
+
+RCRA_DATA = \
+"""
+CREATE TABLE IF NOT EXISTS rcra_compliance (
+    rcra_name TEXT,
+    source_id TEXT,
+    rcra_street TEXT,
+    rcra_city TEXT,
+    rcra_state VARCHAR(2),
+    registry_id TEXT PRIMARY KEY,
+    rcra_snc TEXT,  
+    rcra_qtrs_with_nc INTEGER,  -- Quarters with Noncompliance
+    rcra_insp_cnt INTEGER,      -- Number of inspections
+    rcra_fea_cnt INTEGER        -- Number of formal enforcement actions
+);
+"""
+
+TRI_DATA = \
+"""
+CREATE TABLE IF NOT EXISTS tri_facilities (
+    year INTEGER,
+    trifd TEXT,
+    frs_id TEXT,
+    facility_name TEXT,
+    street_address TEXT,
+    city TEXT,
+    state VARCHAR(2),
+    zip TEXT,
+    county TEXT,
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION,
+    parent_co_name TEXT,
+    standard_parent_co_name TEXT,
+    federal_facility TEXT,  -- Y/N
+    industry_sector_code TEXT,
+    industry_sector TEXT,
+    primary_sic TEXT,
+    primary_naics TEXT,
+    chemical TEXT,
+    cas_number TEXT,
+    carcinogen TEXT,  -- Y/N
+    pbt TEXT,         -- Y/N
+    pfas TEXT,        -- Y/N
+    unit_of_measure TEXT,
+    fugitive_air DOUBLE PRECISION,
+    stack_air DOUBLE PRECISION,
+    water DOUBLE PRECISION,
+    landfills DOUBLE PRECISION,
+    on_site_release_total DOUBLE PRECISION,
+    off_site_release_total DOUBLE PRECISION,
+    off_site_recycled_total DOUBLE PRECISION,
+    off_site_energy_recovery DOUBLE PRECISION,
+    off_site_treated_total DOUBLE PRECISION,
+    total_transfer DOUBLE PRECISION,
+    total_releases DOUBLE PRECISION,
+    production_waste DOUBLE PRECISION,
+    naics_6 TEXT,
+    naics_4 TEXT
+);
+
+"""
+
+
+
+def create_tables():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(facility_table)
+    cur.execute(HIFLD_landfills)
+    cur.execute(RCRA_DATA)
+    cur.execute(TRI_DATA)
+
+    conn.commit()
+    cur.close()
+    conn.close()
