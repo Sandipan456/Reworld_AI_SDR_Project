@@ -1,9 +1,6 @@
-import math
 import requests
 import json
 import pandas as pd
-import re
-import os
 from database.db_utils.connection import get_connection
 from psycopg2.extras import execute_values
 
@@ -441,3 +438,93 @@ def push_rcra_data(file_path):
         conn.rollback() # --> Incase One fails others should work
         print("Failed to push to database")
         print("Error \n", e)
+
+
+
+def echo_rcra_facilities_in_25_miles_radius(bbox):
+    bounding_box = {
+        "xmin": bbox["minLon"],
+        "ymin": bbox["minLat"],
+        "xmax": bbox["maxLon"],
+        "ymax": bbox["maxLat"],
+        "spatialReference": {"wkid": 4326}
+    }
+
+    url = "https://echogeo.epa.gov/arcgis/rest/services/ECHO/Facilities/MapServer/3/query"
+
+    params = {
+        "f": "geojson",
+        "where": "1=1",
+        "outFields": "*",
+        "returnGeometry": "true",
+        "geometryType": "esriGeometryEnvelope",
+        "geometry": json.dumps(bounding_box),
+        "spatialRel": "esriSpatialRelIntersects",
+        "outSR": "4326"
+    }
+
+    try:
+        response = requests.get(url, params=params, timeout=15)
+    except Exception as e:
+        print(f"Failed to fetch data with request failed: {e}")
+        return None
+
+    if response.status_code == 200:
+
+        cur = conn.cursor()
+        columns = [
+            'OBJECTID', 'SOURCE_ID', 'EPA_SYSTEM', 'REGISTRY_ID', 'STATUTE', 'RCR_NAME', 'RCR_STREET',
+            'RCR_CITY', 'RCR_STATE', 'RCR_STATE_DISTRICT', 'RCR_ZIP', 'RCR_COUNTY', 'RCR_EPA_REGION',
+            'RCR_STATUS', 'RCR_INDIAN_CNTRY_FLG', 'RCR_TRIBAL_LAND_CODE', 'FAC_FIPS_CODE', 'FAC_LAT', 'FAC_LONG',
+            'RCRA_UNIVERSE', 'RCRA_NAICS', 'FAC_SIC_CODES', 'FAC_PERCENT_MINORITY', 'FAC_POPULATION_DENSITY',
+            'AIR_IDS', 'CWA_IDS', 'RCRA_IDS', 'TRI_IDS', 'SDWA_IDS', 'RCRA_CASE_IDS', 'RCRA_CURR_SNC',
+            'RCRA_CURR_COMPL_STATUS', 'RCRA_QTRS_IN_SNC', 'RCRA_QTRS_IN_NC', 'RCRA_CURR_VIOLATION_TYPES',
+            'RCRA_IEA_CNT', 'RCRA_FEA_CNT', 'RCRA_PENALTIES', 'FAC_TRI_REPORTER', 'FAC_TRI_ON_SITE_RELEASES',
+            'RCR_FIPS_CODE', 'RCR_LAND_TYPE_CODE', 'FAC_TRI_LAND_RELEASES'
+        ]
+
+        print("RCRA Facility Data fetched successfully")
+        try:
+            data = response.json()
+            features = data.get("features", [])
+            records = [feature["properties"] for feature in features]
+
+            if not records:
+                print("No facilities found in the given bounding box.")
+                return None
+
+            df = pd.DataFrame(records)
+
+            df_rcra_clean  = df[columns].where(pd.notnull(df), None)
+            # Normalize column names to lowercase with underscores
+            df_rcra_clean .columns = [col.lower() for col in df_rcra_clean .columns]
+
+            records = [tuple(row) for row in df_rcra_clean.to_numpy()]
+            
+
+            records = df_rcra_clean.to_records(index=False).tolist()
+
+            placeholders = ', '.join(col.lower() for col in columns)
+
+            query = f"""
+                INSERT INTO rcra_facilities ({placeholders})
+                VALUES %s;
+                
+            """
+
+
+            execute_values(cur, query, records)
+            conn.commit()
+            cur.close()
+
+            print(f"✅ Inserted {len(df)} rows into rcra_facilities.")
+            return df
+
+        except Exception as e:
+            conn.rollback()
+            print(f"❌ Failed to process or insert data: {e}")
+            return None
+    else:
+        print("❌ Failed to load. Status code:", response.status_code)
+        print("Response:", response.text)
+        return None

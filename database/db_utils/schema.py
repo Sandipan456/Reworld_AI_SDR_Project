@@ -51,21 +51,21 @@ CREATE TABLE IF NOT EXISTS HIFLD_landfills (
 );
 """
 
-RCRA_DATA = \
-"""
-CREATE TABLE IF NOT EXISTS rcra_compliance (
-    rcra_name TEXT,
-    source_id TEXT,
-    rcra_street TEXT,
-    rcra_city TEXT,
-    rcra_state VARCHAR(2),
-    registry_id TEXT PRIMARY KEY,
-    rcra_snc TEXT,  
-    rcra_qtrs_with_nc INTEGER,  -- Quarters with Noncompliance
-    rcra_insp_cnt INTEGER,      -- Number of inspections
-    rcra_fea_cnt INTEGER        -- Number of formal enforcement actions
-);
-"""
+# RCRA_DATA = \
+# """
+# CREATE TABLE IF NOT EXISTS rcra_compliance (
+#     rcra_name TEXT,
+#     source_id TEXT,
+#     rcra_street TEXT,
+#     rcra_city TEXT,
+#     rcra_state VARCHAR(2),
+#     registry_id TEXT PRIMARY KEY,
+#     rcra_snc TEXT,  
+#     rcra_qtrs_with_nc INTEGER,  -- Quarters with Noncompliance
+#     rcra_insp_cnt INTEGER,      -- Number of inspections
+#     rcra_fea_cnt INTEGER        -- Number of formal enforcement actions
+# );
+# """
 
 TRI_DATA = \
 """
@@ -140,13 +140,82 @@ CREATE TABLE IF NOT EXISTS OSM_enhanced_data (
 """
 
 
+rcra_table = """
+CREATE TABLE IF NOT EXISTS rcra_facilities (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    
+    
+    
+    OBJECTID BIGINT,
+    SOURCE_ID TEXT,
+    EPA_SYSTEM VARCHAR(10),
+    REGISTRY_ID TEXT,
+    STATUTE VARCHAR(50),
+    RCR_NAME VARCHAR(200),
+    RCR_STREET VARCHAR(200),
+    RCR_CITY VARCHAR(100),
+    RCR_STATE CHAR(2),
+    RCR_STATE_DISTRICT VARCHAR(40),
+    RCR_ZIP VARCHAR(10),
+    RCR_COUNTY VARCHAR(100),
+    RCR_EPA_REGION CHAR(2),
+    RCR_STATUS VARCHAR(100),
+    RCR_INDIAN_CNTRY_FLG CHAR(1),
+    RCR_TRIBAL_LAND_CODE VARCHAR(80),
+
+    FAC_FIPS_CODE VARCHAR(15),
+    FAC_LAT DOUBLE PRECISION,
+    FAC_LONG DOUBLE PRECISION,
+
+
+    RCRA_UNIVERSE VARCHAR(4000),
+    RCRA_NAICS TEXT,
+    FAC_SIC_CODES TEXT,
+
+    FAC_PERCENT_MINORITY DOUBLE PRECISION,
+    FAC_POPULATION_DENSITY DOUBLE PRECISION,
+
+
+    AIR_IDS TEXT,
+    CWA_IDS TEXT,
+    RCRA_IDS TEXT,
+    TRI_IDS TEXT,
+    SDWA_IDS TEXT,
+    RCRA_CASE_IDS TEXT,
+
+    RCRA_CURR_SNC CHAR(3),
+    RCRA_CURR_COMPL_STATUS VARCHAR(50),
+    RCRA_QTRS_IN_SNC SMALLINT,
+    RCRA_QTRS_IN_NC SMALLINT,
+    RCRA_CURR_VIOLATION_TYPES TEXT,
+
+
+    RCRA_IEA_CNT INTEGER,
+    RCRA_FEA_CNT INTEGER,
+    RCRA_PENALTIES DOUBLE PRECISION,
+
+    FAC_TRI_REPORTER CHAR(1),
+    FAC_TRI_ON_SITE_RELEASES DOUBLE PRECISION,
+
+
+
+
+    RCR_FIPS_CODE VARCHAR(5),
+    RCR_LAND_TYPE_CODE VARCHAR(30),
+    FAC_TRI_LAND_RELEASES DOUBLE PRECISION
+    
+);
+
+"""
+
 def create_tables():
     conn = get_connection()
     cur = conn.cursor()
 
     cur.execute(facility_table)
     cur.execute(HIFLD_landfills)
-    cur.execute(RCRA_DATA)
+    # cur.execute(RCRA_DATA)
+    cur.execute(rcra_table)
     cur.execute(TRI_DATA)
     cur.execute(OSM_Enhanced_Data)
 
