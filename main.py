@@ -6,6 +6,7 @@ from processing_modules.Get_EPA_Data import get_TRI_Data, push_rcra_data, echo_a
 from utils.bbounding_boxes import create_bounding_box_300_miles, generate_25_mile_bounding_boxes
 import time
 from OSM.OSM_Enrichment import Enhance_OSM_Data
+from Research_View_enhancement_modules.ehance_research_data import run_facility_enrichment_pipeline_ed2
 
 # Setup DB
 conn = get_connection()
@@ -24,15 +25,15 @@ lon = -73.3309
 # for rcra_data in rcra_datas:
 #     push_rcra_data(rcra_data)
 
-bbox = create_bounding_box_300_miles(lat, lon)
+# bbox = create_bounding_box_300_miles(lat, lon)
 
-bboxes = generate_25_mile_bounding_boxes(bbox)
+# bboxes = generate_25_mile_bounding_boxes(bbox)
 
-for i, bounding_box in enumerate(bboxes):
-    echo_rcra_facilities_in_25_miles_radius(bbox)
-    # break
-    print(f"Processing {i + 1} Bounding box out of {len(bboxes)}")
-#     if i < 93:
+# for i, bounding_box in enumerate(bboxes):
+#     # echo_rcra_facilities_in_25_miles_radius(bbox)
+#     # break
+#     print(f"Processing {i + 1} Bounding box out of {len(bboxes)}")
+#     if i < 275:
 #         continue
 #     # Rename keys for downstream usage (without changing actual bbox values)
 #     renamed_bbox = {
@@ -42,11 +43,11 @@ for i, bounding_box in enumerate(bboxes):
 #         "xmax": bounding_box["maxLon"]
 #     }
 
-#     # print(renamed_bbox)
+# #     # print(renamed_bbox)
 
 #     Enhance_OSM_Data(renamed_bbox)
-#     # if (i == 19):
-#     #     break
+#     if (i == 400):
+#         break
 
 # # renamed_bbox = {
 # #         "ymin": bbox["minLat"],
@@ -55,9 +56,12 @@ for i, bounding_box in enumerate(bboxes):
 # #         "xmax": bbox["maxLon"]
 # #     }
 # # print(renamed_bbox)
-# # Enhance_OSM_Data(renamed_bbox)
+# Enhance_OSM_Data(renamed_bbox)
 
 # # # Finish
 # # conn.commit()
 # # # cur.close()
-# # conn.close()
+
+
+run_facility_enrichment_pipeline_ed2(10)
+conn.close()
