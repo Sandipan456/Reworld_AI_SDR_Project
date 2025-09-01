@@ -7,6 +7,7 @@ from utils.bbounding_boxes import create_bounding_box_300_miles, generate_25_mil
 import time
 from OSM.OSM_Enrichment import Enhance_OSM_Data
 from Research_View_enhancement_modules.ehance_research_data import run_facility_enrichment_pipeline_ed2
+from Research_View_enhancement_modules.prepare_final_master import run_facility_llm_enrichment_pipeline
 
 # Setup DB
 conn = get_connection()
@@ -63,5 +64,6 @@ lon = -73.3309
 # # # cur.close()
 
 
-run_facility_enrichment_pipeline_ed2(10)
+# run_facility_enrichment_pipeline_ed2(10)
+run_facility_llm_enrichment_pipeline()
 conn.close()

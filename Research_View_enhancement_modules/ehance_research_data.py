@@ -250,11 +250,6 @@ def get_info_from_apollo(df: pd.DataFrame) -> pd.DataFrame:
 
 
 
-
-
-
-
-
 def serialize_json_columns(df: pd.DataFrame, json_columns: list[str]) -> pd.DataFrame:
     for col in json_columns:
         if col in df.columns:
