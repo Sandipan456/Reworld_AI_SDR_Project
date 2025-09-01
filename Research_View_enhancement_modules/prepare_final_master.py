@@ -121,12 +121,12 @@ def enrich_facility_row_via_llm(row):
     try:
         response = gemini_model.generate_content(prompt)
         response_text = response.text.strip()
-        print(f"🔍 Prompt sent for: {inferred_parent or kg_parent}")
-        print(f"📥 Raw response: {response_text[:300]}...\n")  # Preview
+        print(f"Prompt sent for: {inferred_parent or kg_parent}")
+        print(f"Raw response: {response_text[:300]}...\n")  # Preview
 
         json_match = re.search(r"\{.*\}", response_text, re.DOTALL)
         if not json_match:
-            print(f"[⚠️ WARNING] No JSON match found for: {inferred_parent} / {kg_parent}")
+            print(f"[WARNING] No JSON match found for: {inferred_parent} / {kg_parent}")
             return _na_payload()
 
         parsed = json.loads(json_match.group(0))
@@ -160,7 +160,7 @@ def _na_payload():
 
 
 def enrich_chunk_with_llm(chunk_df: pd.DataFrame) -> pd.DataFrame:
-    print(f"🚀 Enriching {len(chunk_df)} rows...")
+    print(f"Enriching {len(chunk_df)} rows...")
 
     results = {
         "company_overview": [],
@@ -208,11 +208,11 @@ def push_to_postgres(df: pd.DataFrame, conn, table_name: str = "final_master_dat
         index=False,
         method="multi"
     )
-    print(f"📦 Pushed {len(df)} rows to table '{table_name}'\n")
+    print(f"Pushed {len(df)} rows to table '{table_name}'\n")
 
 
 def run_facility_llm_enrichment_pipeline(chunk_size=100):
-    print("🏁 Starting full enrichment pipeline...\n")
+    print("Starting full enrichment pipeline...\n")
 
     for i, chunk_df in enumerate(load_facilites_in_chunks(conn, chunk_size=chunk_size)):
         print(f"\n============================")
@@ -235,4 +235,4 @@ def run_facility_llm_enrichment_pipeline(chunk_size=100):
         print(f"✅ Chunk {i + 1} processed and saved.\n")
         print(f"============================\n")
 
-    print("🎉 Pipeline complete!")
+    print("Pipeline complete!")
