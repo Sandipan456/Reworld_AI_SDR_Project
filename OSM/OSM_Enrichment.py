@@ -4,11 +4,11 @@ import time
 import os
 from dotenv import load_dotenv
 from typing import Optional
-from google import genai
 import re
 from database.db_utils.connection import get_connection
 from psycopg2.extras import execute_values
 import json
+import google.generativeai as genai
 
 conn = get_connection()
 
@@ -29,6 +29,9 @@ headers = {
 }
 
 
+genai.configure(api_key=gemini_api_key)
+gemini_model = genai.GenerativeModel(model_name="models/gemini-2.5-pro")
+
 
 
 # Overpass API endpoint
@@ -41,10 +44,53 @@ industry_tag_dict = {
         "industrial": ["chemical", "refinery", "petroleum_terminal", "gas_plant", "gas_storage", "oil_mill"],
         "product": ["chemicals", "petrochemicals"],
         "landuse": "industrial"
+    },
+    "F&B_Tobacco": {
+        "man_made": "works",
+        "landuse": "industrial",
+        "product": ["food", "beverage", "tobacco"],
+        "industrial": ["food_processing", "bakery", "brewery", "winery", "rice_mill"]
+    },
+    "CPG":{
+        "man_made": "works",
+        "landuse": "industrial",
+        "product": ["packaging", "consumer_goods"],
+        "industrial": ["logistics", "storage"]
+    },
+    "Pharma":{
+        "man_made": "works",
+        "landuse": "industrial",
+        "product": ["pharmaceuticals"],
+        "industrial": ["chemical"]
+    },
+    "Automotive":{
+        "man_made": "works",
+        "landuse": "industrial",
+        "product": ["auto_parts"],
+        "industrial": ["automotive_parts", "machine_shop"]
+    },
+    "Plastic_rubber":{
+        "man_made": "works",
+        "landuse": "industrial",
+        "product": ["rubber"],
+        "industrial": ["plastic_processing"]
+    },
+    # "paper":{
+    #     "man_made": "works",
+    #     "landuse": "industrial",
+    #     "product": ["rubber"],
+    #     "industrial": ["paper_mill", "paper"]
+    # },
+    "equipment":{
+        "man_made": "works",
+        "landuse": "industrial",
+        "product": ["machinery", "electronics"],
+        "industrial": ["warehouse"]
     }
+    # "Machinery"
 }
 
-def get_OSM_data(bbox):
+def get_OSM_data(bbox, Reworld_fac_name):
     results = []
 
     for key, values in industry_tag_dict.items():
@@ -54,10 +100,11 @@ def get_OSM_data(bbox):
         man_made = values["man_made"]
         landuse = values["landuse"]
 
+        print(f"Searching for mainindustry:{main_industry}")
         for industry in industries:
             for product in products:
                 tag_combo = f"{industry}|{product}"
-                tag_combo_save =  f"industrial: {industry}|product: {product}"
+                tag_combo_save =  f"industrial: {industry}|product: {product}|manmade: {man_made}|landuse: {landuse}"
                 query = f"""
                 [out:json][timeout:25]; 
                     ( node["industrial"="{industry}"]({bbox["ymin"]},{bbox["xmin"]},{bbox["ymax"]},
@@ -89,7 +136,7 @@ def get_OSM_data(bbox):
                     lon = element.get("lon") or element.get("center", {}).get("lon")
 
                     results.append({
-                        "Facility": "Reworld X",
+                        "Facility": Reworld_fac_name,
                         "Industry": main_industry,
                         "Factory Name": name,
                         "Address": tags.get("addr:street", ""),
@@ -107,7 +154,7 @@ def get_OSM_data(bbox):
     # output_path = os.path.join(os.getcwd(), "Reworld_OSM_Chemical_Facilities.csv")
     # df.to_csv(output_path, index=False)
     # print(f"✅ Saved {len(df)} facilities to: {output_path}")
-    print(df)
+    print(df.head())
     return df
 
 
@@ -130,30 +177,30 @@ def get_company_names(df: pd.DataFrame):
 
     print(df.shape[0] == len(list_f))
 
-    client = genai.Client(api_key=gemini_api_key)
+    # client = genai.Client(api_key=gemini_api_key)
+    try:
+        response = gemini_model.generate_content(prompt)
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt
-    )
+        match = re.search(r"\[.*?\]", response.text, re.DOTALL)
+        if match:
+            list_string = match.group(0)
+            import ast
+            company_list = ast.literal_eval(list_string)
+            print("company_list Found")
+        else:
+            print("No list found.")
 
-    match = re.search(r"\[.*?\]", response.text, re.DOTALL)
-    if match:
-        list_string = match.group(0)
-        import ast
-        company_list = ast.literal_eval(list_string)
-        print("company_list Found")
-    else:
-        print("No list found.")
-
-    if (df.shape[0] != len(company_list)):
-        return pd.DataFrame()
+        if (df.shape[0] != len(company_list)):
+            return pd.DataFrame()
     
 
-    df["Company name"] = company_list
+        df["Company name"] = company_list
 
-    # df.to_csv("Reworld_OSM_Chemical_FacilitiesV1.csv", index=False)
-    return df
+        # df.to_csv("Reworld_OSM_Chemical_FacilitiesV1.csv", index=False)
+        return df
+    except Exception as e:
+        print("Failed to fetch data from Gemini", e)
+        return pd.DataFrame()
 
 
 
@@ -400,8 +447,8 @@ bbox = {
 
 
 
-def Enhance_OSM_Data(bbox):
-    df = get_OSM_data(bbox)
+def Enhance_OSM_Data(bbox, Reworld_fac_name):
+    df = get_OSM_data(bbox, Reworld_fac_name)
 
     if df.empty:
         print("No data found")
@@ -434,7 +481,8 @@ def Enhance_OSM_Data(bbox):
     print(df3.columns)
     print("------------------------------------------------------\n")
 
-    push_df_to_db(df3)
+    df3.to_csv("TEST_OSM_ALL_INUSTRY.csv", index=False)
+    # push_df_to_db(df3)
 
 
 
