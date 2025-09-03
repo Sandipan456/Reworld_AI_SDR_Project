@@ -41,7 +41,13 @@ def load_facilites_in_chunks(conn, chunk_size = 100):
     Only loads registry_id and fac_name.
     """
 
-    query = "SELECT * FROM frs_master_data"
+    query = """"
+    SELECT *
+    FROM frs_master_data
+    WHERE registry_id NOT IN (
+        SELECT DISTINCT registry_id FROM enhanced_data_2
+    )
+    """
     offset = 0
 
 

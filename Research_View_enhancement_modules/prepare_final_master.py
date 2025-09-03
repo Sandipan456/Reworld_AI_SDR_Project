@@ -47,7 +47,13 @@ def find_closest_reworld_facility(row, reworld_df):
 
 
 def load_facilites_in_chunks(conn, chunk_size=100):
-    query = "SELECT * FROM enhanced_data_2"
+    query = """
+    SELECT *
+        FROM enhanced_data_2
+        WHERE registry_id NOT IN (
+            SELECT DISTINCT registry_id FROM final_master_data
+        )
+    """
     offset = 0
     while True:
         chunk_query = f"{query} OFFSET {offset} LIMIT {chunk_size}"
