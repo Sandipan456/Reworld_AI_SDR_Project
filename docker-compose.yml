@@ -1,16 +1,38 @@
 services:
-  postgres:
-    image: postgres:15
-    container_name: postgres_container
-    restart: always
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+  # postgres:
+  #   image: postgres:15
+  #   container_name: postgres_container
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: ${DB_USER}
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #     POSTGRES_DB: ${DB_NAME}
+  #   ports:
+  #     - "5432:5432"  # This exposes to host, but containers use service name
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - app_network  # Add explicit network
 
-volumes:
-  postgres_data:
+  app:
+    build: .
+    container_name: enrichment_engine
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres  # Use service name, not localhost
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    networks:
+      - app_network  # Same network as postgres
+    volumes:
+      - .:/app
+
+# volumes:
+#   postgres_data:
+
+networks:
+  app_network:
+    driver: bridge

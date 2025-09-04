@@ -1,0 +1,10 @@
+data/
+logs/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.csv
+.env
+.cache/
+venv/

@@ -20,6 +20,7 @@ Reworld_df = pd.read_csv("data/Reworld_facilities__US_and_CA.csv")
 
 get_TRI_Data("data/US_GOV_Waste_Sites/Toxic_Release_Inventory.csv")
 for idx, reworld_row in Reworld_df.iterrows():
+    break
     Reworld_facility_name = reworld_row["Facility Name"]
     Reworld_facility_lat = reworld_row["Latitude"]
     Reworld_facility_lon = reworld_row["Longitude"]
@@ -52,3 +53,4 @@ for idx, reworld_row in Reworld_df.iterrows():
     run_facility_llm_enrichment_pipeline(chunk_size=12)
 
 conn.close()
+logger.info("Executed Successfully")

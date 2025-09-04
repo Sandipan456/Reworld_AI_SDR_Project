@@ -16,31 +16,32 @@ def get_connection():
             dbname = DB_NAME,
             user = DB_USER,
             password = DB_PASSWORD,
-            host = "localhost",
+            host = os.getenv("DB_HOST", "postgres"),
             port = "5432"
         )
         return conn
     except Exception as e:
         # print("Failed to establish connection with DB:", e)
-        logger.error("Failed to establish connection with DB:", e)
-        raise "Failed to connect with Database"
+        logger.error(f"Failed to establish connection with DB: {e}")
+        raise RuntimeError("Failed to connect with Database")
 
 def get_sqlalchemy_engine():
     DB_USER = os.getenv("DB_USER")
     DB_PASSWORD = os.getenv("DB_PASSWORD")
-    DB_HOST = os.getenv("DB_HOST", "localhost")
+    DB_HOST = os.getenv("DB_HOST", "host.docker.internal")
     DB_PORT = os.getenv("DB_PORT", "5432")
     DB_NAME = os.getenv("DB_NAME")
 
     url = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
     try:
+        print(url)
         engine = create_engine(url)
         return engine
     except Exception as e:
         # print("Failed to establish connection with DB:", e)
-        logger.error("Failed to establish connection with DB:", e)
-        raise "Failed to connect with Database"
+        logger.error(f"Failed to establish connection with DB: {e}")
+        raise RuntimeError("Failed to connect with Database") 
 
 
 def test_connection():
