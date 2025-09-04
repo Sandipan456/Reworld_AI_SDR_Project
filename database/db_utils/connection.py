@@ -2,6 +2,7 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
+from logger import logger
 
 load_dotenv()
 
@@ -20,7 +21,8 @@ def get_connection():
         )
         return conn
     except Exception as e:
-        print("Failed to establish connection with DB:", e)
+        # print("Failed to establish connection with DB:", e)
+        logger.error("Failed to establish connection with DB:", e)
         raise "Failed to connect with Database"
 
 def get_sqlalchemy_engine():
@@ -31,9 +33,16 @@ def get_sqlalchemy_engine():
     DB_NAME = os.getenv("DB_NAME")
 
     url = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    engine = create_engine(url)
-    return engine
-    
+
+    try:
+        engine = create_engine(url)
+        return engine
+    except Exception as e:
+        # print("Failed to establish connection with DB:", e)
+        logger.error("Failed to establish connection with DB:", e)
+        raise "Failed to connect with Database"
+
+
 def test_connection():
     conn = get_connection()
     if conn:

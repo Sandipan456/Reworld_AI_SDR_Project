@@ -9,6 +9,7 @@ from database.db_utils.connection import get_connection
 from psycopg2.extras import execute_values
 import json
 import google.generativeai as genai
+from logger import logger
 
 conn = get_connection()
 
@@ -119,9 +120,11 @@ def get_OSM_data(bbox, Reworld_fac_name):
 
                 response = requests.post(over_pass_url, data=query)
                 if response.status_code != 200:
+                    logger.error(f"Request failed for {tag_combo} with code {response.status_code}")
                     print(f"Request failed for {tag_combo} with code {response.status_code}")
                     continue
                 print(f"Request Fetched for {tag_combo} with code {response.status_code}")
+                logger.info(f"Request Fetched for {tag_combo} with code {response.status_code}")
                 data = response.json()
 
                 # print("Fetched results data", data.get("elements", []))
@@ -186,9 +189,9 @@ def get_company_names(df: pd.DataFrame):
             list_string = match.group(0)
             import ast
             company_list = ast.literal_eval(list_string)
-            print("company_list Found")
+            logger.info("company_list Found")
         else:
-            print("No list found.")
+            logger.info("No list found.")
 
         if (df.shape[0] != len(company_list)):
             return pd.DataFrame()
@@ -199,6 +202,7 @@ def get_company_names(df: pd.DataFrame):
         # df.to_csv("Reworld_OSM_Chemical_FacilitiesV1.csv", index=False)
         return df
     except Exception as e:
+        logger.error("Failed to fetch data from Gemini", e)
         print("Failed to fetch data from Gemini", e)
         return pd.DataFrame()
 
@@ -250,7 +254,7 @@ def enrich_company_names_via_kg(
             website = result.get("url")
             return name, website
         except Exception as e:
-            print(f"Error querying {company_name}: {e}")
+            logger.error(f"Error querying {company_name}: {e}")
             return None, None
 
     # Enrichment loop
@@ -259,7 +263,7 @@ def enrich_company_names_via_kg(
         if pd.isna(company) or company.strip().lower() == "n/a":
             continue
 
-        print(f"[{i + 1}/{len(df)}] Querying KG for: {company}")
+        logger.info(f"[{i + 1}/{len(df)}] Querying KG for: {company}")
         enhanced_name, website = query_kg(company)
 
         df.at[i, "Enhanced Company Name"] = enhanced_name or "N/A"
@@ -305,15 +309,15 @@ def enrich_domains_via_apollo(
         name = row.get(name_column)
 
         if not isinstance(url, str) or url.strip().upper() == "N/A":
-            print(f"URL doesn't exist for company: {name}, skipping...")
+            logger.info(f"URL doesn't exist for company: {name}, skipping...")
             continue
 
         domain = extract_domain(url)
         if not domain:
-            print(f"Invalid domain for {name}, skipping...")
+            logger.info(f"Invalid domain for {name}, skipping...")
             continue
 
-        print(f"[{i+1}/{len(df)}] Querying domain: {domain}")
+        logger.info(f"[{i+1}/{len(df)}] Querying domain: {domain}")
 
         try:
             payload = {"domain": domain}
@@ -322,7 +326,7 @@ def enrich_domains_via_apollo(
 
             org = data.get("organization", {})
             if not org:
-                print(f"No organization data for: {name}, skipping...")
+                logger.info(f"No organization data for: {name}, skipping...")
                 continue
 
             df.at[i, "Revenue"] = org.get("annual_revenue")
@@ -341,11 +345,11 @@ def enrich_domains_via_apollo(
 
             df.at[i, "employee_count"] = org.get("estimated_num_employees")
 
-            print(f"✅ Written info for {name}")
+            logger.info(f"✅ Written info for {name}")
             time.sleep(rate_limit_delay)
 
         except Exception as e:
-            print(f"❌ Failed to fetch data for {name}: {e}")
+            logger.error(f"❌ Failed to fetch data for {name}: {e}")
             continue
 
     # Keep only the required columns in final output
@@ -417,7 +421,7 @@ def push_df_to_db(df: pd.DataFrame, table_name: str = "OSM_enhanced_data"):
         execute_values(cur, insert_query, values)
         conn.commit()
 
-    print(f"✅ Successfully pushed {len(df)} rows to `{table_name}`.")
+    logger.info(f"✅ Successfully pushed {len(df)} rows to `{table_name}`.")
 
 
 
@@ -451,11 +455,11 @@ def Enhance_OSM_Data(bbox, Reworld_fac_name):
     df = get_OSM_data(bbox, Reworld_fac_name)
 
     if df.empty:
-        print("No data found")
+        # print("No data found")
         return 
-    print("--------------------- VALUE OF DF -------------------\n")
-    print(df.columns)
-    print("------------------------------------------------------\n")
+    # print("--------------------- VALUE OF DF -------------------\n")
+    # print(df.columns)
+    # print("------------------------------------------------------\n")
 
 
 
@@ -464,22 +468,22 @@ def Enhance_OSM_Data(bbox, Reworld_fac_name):
     if df1.empty:
         return
 
-    print("--------------------- VALUE OF DF1 -------------------\n")
-    print(df1.columns)
-    print("------------------------------------------------------\n")
+    # print("--------------------- VALUE OF DF1 -------------------\n")
+    # print(df1.columns)
+    # print("------------------------------------------------------\n")
 
     df2 = enrich_company_names_via_kg(df1)
 
-    print("--------------------- VALUE OF DF2 -------------------\n")
-    print(df2.columns)
-    print("------------------------------------------------------\n")
+    # print("--------------------- VALUE OF DF2 -------------------\n")
+    # print(df2.columns)
+    # print("------------------------------------------------------\n")
 
     df3 = enrich_domains_via_apollo(df2)
 
 
-    print("--------------------- VALUE OF DF3 -------------------\n")
-    print(df3.columns)
-    print("------------------------------------------------------\n")
+    # print("--------------------- VALUE OF DF3 -------------------\n")
+    # print(df3.columns)
+    # print("------------------------------------------------------\n")
 
     df3.to_csv("TEST_OSM_ALL_INUSTRY.csv", index=False)
     # push_df_to_db(df3)

@@ -71,7 +71,7 @@ TRI_DATA = \
 """
 CREATE TABLE IF NOT EXISTS tri_facilities (
     year INTEGER,
-    trifd TEXT,
+    trifd TEXT PRIMARY KEY,
     frs_id TEXT,
     facility_name TEXT,
     street_address TEXT,

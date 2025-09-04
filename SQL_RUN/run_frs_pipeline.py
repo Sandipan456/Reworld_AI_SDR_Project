@@ -1,6 +1,7 @@
 import os
 from sqlalchemy import text
 from database.db_utils.connection import get_sqlalchemy_engine
+from logger import logger
 
 SQL_DIR = os.path.join(os.path.dirname(__file__), "..", "SQL")
 
@@ -18,7 +19,8 @@ def run_sql(conn, filename: str):
     """
     sql = load_sql(filename)
     conn.execute(text(sql))
-    print(f"Executed: {filename}")
+    logger.info(f"Executed: {filename}")
+    # print(f"Executed: {filename}")
 
 def run_frs_SQL_pipeline():
     """
@@ -35,6 +37,7 @@ def run_frs_SQL_pipeline():
         run_sql(conn, "upsert_frs_master_data.sql")
         run_sql(conn, "enrich_landfill.sql")
 
+    logger.info("FRS master pipeline completed")
     print("FRS master pipeline completed.")
 
 # For CLI execution

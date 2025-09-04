@@ -3,6 +3,7 @@ import json
 import pandas as pd
 from database.db_utils.connection import get_connection
 from psycopg2.extras import execute_values
+from logger import logger
 
 conn = get_connection()
 
@@ -43,10 +44,12 @@ def echo_all_facilities_in_25_miles_radius(bbox):
     try:
         response = requests.get(url, params=params, timeout=10)
     except Exception as e:
+        logger.info(f"Failed to fetch ECHO failities data for {bbox}")
         print(f"Failed to fetch data with request failed")
         return
 
     if response.status_code == 200:
+        logger.info(f"Echo Facility_Data fetched Successfully for {bbox}")
         print("Facility_Data fetched Successfully")
         try:
             data = response.json()
@@ -81,9 +84,11 @@ def echo_all_facilities_in_25_miles_radius(bbox):
                 """, record_tuples)
 
                 conn.commit()
+                logger.info("Successfully pushed ECHO Data to database.")
                 print("Successfully pushed to database.")
 
             except Exception as e:
+                logger.error(f"Failed to push EPA data to Data base error: {e}")
                 conn.rollback()
                 print("Failed to push to database")
                 print("Error:\n", e)
@@ -154,6 +159,7 @@ def get_HIFLD_Data_within_25_mile_radius(bbox):
         response = requests.get(url, params=params, timeout=10)
     except Exception as e:
         print(f"Failed to fetch data with request failed")
+        logger.error(f"Failed to fetch HIFLD data with request for: {bbox}")
         return
 
     if response.status_code == 200:
@@ -182,10 +188,12 @@ def get_HIFLD_Data_within_25_mile_radius(bbox):
                     ON CONFLICT (swid) DO NOTHING;
                 """, record_tuples)
                 conn.commit()
+                logger.info("Successfully pushed HIFLD data to the database.")
                 print("Successfully pushed HIFLD data to the database.")
 
             except Exception as e:
                 conn.rollback()
+                logger.error(f"Failed to push HIFLD data to database. {e}")
                 print("Failed to push HIFLD data to database.")
                 print("Error:\n", e)
 
@@ -193,6 +201,7 @@ def get_HIFLD_Data_within_25_mile_radius(bbox):
             # df.head(10).to_csv("US_GOV_Waste_Sites/part_3_HIFLD_landfills.csv", index=False)
             return None
         except Exception as e:
+            logger.error("HIFLD Failed to process response.\n{e}")
             print(f"Failed to process response.\n{e}")
             return None
     else:
@@ -398,14 +407,17 @@ def get_TRI_Data(file_path):
             naics_6,
             naics_4
         ) VALUES %s
+        ON CONFLICT (trifd) do NOTHING;
     """
     try:
         execute_values(cur, insert_query, records)
         conn.commit()
         cur.close()
-        print("Succesfully pushed to database")
+        print("Succesfully pushed TRI datato database")
+        logger.info("Succesfully pushed TRI data to database")
     except Exception as e:
-        print("Failed to push to database")
+        logger.error(f"Failed to push TRI Data to database error:{e}")
+        print("Failed to push TRI Data to database")
         print("Error \n", e)
 
 
@@ -467,6 +479,7 @@ def echo_rcra_facilities_in_25_miles_radius(bbox):
         response = requests.get(url, params=params, timeout=15)
     except Exception as e:
         print(f"Failed to fetch data with request failed: {e}")
+        logger.error(f"Failed to fetch data with request failed: {e}")
         return None
 
     if response.status_code == 200:
@@ -484,6 +497,7 @@ def echo_rcra_facilities_in_25_miles_radius(bbox):
         ]
 
         print("RCRA Facility Data fetched successfully")
+        logger.info("RCRA Facility Data fetched successfully")
         try:
             data = response.json()
             features = data.get("features", [])
@@ -518,13 +532,17 @@ def echo_rcra_facilities_in_25_miles_radius(bbox):
             cur.close()
 
             print(f"✅ Inserted {len(df)} rows into rcra_facilities.")
+            logger.info(f"✅ Inserted {len(df)} rows into rcra_facilities.")
             return df
 
         except Exception as e:
             conn.rollback()
-            print(f"❌ Failed to process or insert data: {e}")
+            # print(f"❌ Failed to process or insert data: {e}")
+            logger.error(f"❌ Failed to process or insert data: {e}")
             return None
     else:
         print("❌ Failed to load. Status code:", response.status_code)
         print("Response:", response.text)
+        logger.error("❌ Failed to load. Status code:", response.status_code)
+        logger.error("Response:", response)
         return None

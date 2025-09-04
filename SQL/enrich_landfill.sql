@@ -25,7 +25,7 @@ FROM (
                 'type', h.type
             )
         ) FILTER (WHERE h.swid IS NOT NULL) AS nearby_json
-    FROM frs_master f
+    FROM frs_master_data f
     LEFT JOIN HIFLD_landfills h
       ON (
           6371 * acos(

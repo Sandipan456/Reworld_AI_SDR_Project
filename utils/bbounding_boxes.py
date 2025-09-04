@@ -43,3 +43,38 @@ def generate_25_mile_bounding_boxes(bbox):
         lat = next_lat
 
     return boxes
+
+
+def generate_bounding_boxes(bbox, mile_radius):
+    """
+    Generate bounding boxes of given radius (in miles) within a larger bounding box.
+
+    Parameters:
+        bbox (dict): Dictionary with keys 'minLat', 'maxLat', 'minLon', 'maxLon'.
+        mile_radius (float): Radius in miles for each sub-bounding box.
+
+    Returns:
+        List[dict]: List of bounding boxes.
+    """
+    lat_step = miles_to_degrees_lat(mile_radius)
+    # Use average latitude for more accurate conversion
+    avg_lat = (bbox["minLat"] + bbox["maxLat"]) / 2
+    lon_step = miles_to_degrees_lon(mile_radius, avg_lat)
+
+    boxes = []
+    lat = bbox["minLat"]
+    while lat < bbox["maxLat"]:
+        next_lat = min(lat + lat_step, bbox["maxLat"])
+        lon = bbox["minLon"]
+        while lon < bbox["maxLon"]:
+            next_lon = min(lon + lon_step, bbox["maxLon"])
+            boxes.append({
+                "minLat": lat,
+                "maxLat": next_lat,
+                "minLon": lon,
+                "maxLon": next_lon
+            })
+            lon = next_lon
+        lat = next_lat
+
+    return boxes

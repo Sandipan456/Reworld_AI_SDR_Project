@@ -7,6 +7,7 @@ import google.generativeai as genai
 import re
 import json
 from geopy.distance import geodesic
+from logger import logger
 
 load_dotenv()
 gemini_api_key = os.environ.get("Gemini_api")
@@ -127,12 +128,12 @@ def enrich_facility_row_via_llm(row):
     try:
         response = gemini_model.generate_content(prompt)
         response_text = response.text.strip()
-        print(f"Prompt sent for: {inferred_parent or kg_parent}")
+        logger.info(f"Prompt sent for: {inferred_parent or kg_parent}")
         print(f"Raw response: {response_text[:300]}...\n")  # Preview
 
         json_match = re.search(r"\{.*\}", response_text, re.DOTALL)
         if not json_match:
-            print(f"[WARNING] No JSON match found for: {inferred_parent} / {kg_parent}")
+            logger.info(f"[WARNING] No JSON match found for: {inferred_parent} / {kg_parent}")
             return _na_payload()
 
         parsed = json.loads(json_match.group(0))
@@ -148,7 +149,7 @@ def enrich_facility_row_via_llm(row):
         }
 
     except Exception as e:
-        print(f"[❌ LLM ERROR] Failed for: {inferred_parent} / {kg_parent} → {e}")
+        logger.error(f"[❌ LLM ERROR] Failed for: {inferred_parent} / {kg_parent} → {e}")
         return _na_payload()
 
 
@@ -166,7 +167,7 @@ def _na_payload():
 
 
 def enrich_chunk_with_llm(chunk_df: pd.DataFrame) -> pd.DataFrame:
-    print(f"Enriching {len(chunk_df)} rows...")
+    logger.info(f"Enriching {len(chunk_df)} rows...")
 
     results = {
         "company_overview": [],
@@ -195,7 +196,7 @@ def enrich_chunk_with_llm(chunk_df: pd.DataFrame) -> pd.DataFrame:
     for key, values in results.items():
         chunk_df[key] = values
 
-    print("✅ Enrichment complete for this chunk.\n")
+    logger.info("✅ Enrichment complete for this chunk.\n")
     return chunk_df
 
 
@@ -214,16 +215,16 @@ def push_to_postgres(df: pd.DataFrame, conn, table_name: str = "final_master_dat
         index=False,
         method="multi"
     )
-    print(f"Pushed {len(df)} rows to table '{table_name}'\n")
+    logger.info(f"Pushed {len(df)} rows to table '{table_name}'\n")
 
 
 def run_facility_llm_enrichment_pipeline(chunk_size=100):
-    print("Starting full enrichment pipeline...\n")
+    logger.info("Starting full enrichment pipeline...\n")
 
     for i, chunk_df in enumerate(load_facilites_in_chunks(conn, chunk_size=chunk_size)):
-        print(f"\n============================")
-        print(f"🔄 Processing Chunk {i + 1}")
-        print(f"============================")
+        logger.info(f"\n============================")
+        logger.info(f"🔄 Processing Chunk {i + 1}")
+        logger.info(f"============================")
 
         enriched_chunk = enrich_chunk_with_llm(chunk_df.copy())
 
@@ -238,7 +239,7 @@ def run_facility_llm_enrichment_pipeline(chunk_size=100):
 
         push_to_postgres(enriched_chunk, conn)
 
-        print(f"✅ Chunk {i + 1} processed and saved.\n")
-        print(f"============================\n")
+        logger.info(f"✅ Chunk {i + 1} processed and saved.\n")
+        logger.info(f"============================\n")
 
-    print("Pipeline complete!")
+    logger.info("Pipeline complete!")
