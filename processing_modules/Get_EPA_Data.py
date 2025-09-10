@@ -4,8 +4,21 @@ import pandas as pd
 from database.db_utils.connection import get_connection
 from psycopg2.extras import execute_values
 from logger import logger
+from google.cloud import secretmanager
+from google.cloud import logging as cloud_logging
+import os
+import logging
+from dotenv import load_dotenv
 
+load_dotenv()
+
+if os.getenv("ENVIRONMENT") == "cloud":
+    client = cloud_logging.Client()
+    client.setup_logging()
+
+logger = logging.getLogger(__name__)
 conn = get_connection()
+# conn = "NA"
 
 
 
@@ -339,6 +352,7 @@ def get_TRI_Data(file_path):
 
     
     df = pd.read_csv(file_path, low_memory=False)
+    print("TRI FILE FOUND")
 
     df.columns = [column_rename_map[f"{col}"] for col in df.columns]
     
@@ -543,6 +557,6 @@ def echo_rcra_facilities_in_25_miles_radius(bbox):
     else:
         print("❌ Failed to load. Status code:", response.status_code)
         print("Response:", response.text)
-        logger.error("❌ Failed to load. Status code:", response.status_code)
-        logger.error("Response:", response)
+        logger.error(f"❌ Failed to load. Status code: {response.status_code}")
+        # logger.error("Response: response)
         return None

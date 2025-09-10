@@ -34,6 +34,8 @@ FROM (
               sin(radians(f.fac_lat)) * sin(radians(h.latitude))
           )
       ) <= 20
+    WHERE f.landfill_count_within_20km IS NULL   -- ✅ only new rows
     GROUP BY f.registry_id
 ) l
-WHERE d.registry_id = l.registry_id;
+WHERE d.registry_id = l.registry_id
+  AND d.landfill_count_within_20km IS NULL;  

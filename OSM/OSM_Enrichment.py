@@ -10,13 +10,27 @@ from psycopg2.extras import execute_values
 import json
 import google.generativeai as genai
 from logger import logger
+from google.cloud import secretmanager
+from google.cloud import logging as cloud_logging
+import os
+import logging
+import math
+
+
+load_dotenv()
+
+if os.getenv("ENVIRONMENT") == "cloud":
+    client = cloud_logging.Client()
+    client.setup_logging()
+
+logger = logging.getLogger(__name__)
 
 conn = get_connection()
 
 
 
 
-load_dotenv()
+
 gemini_api_key = os.environ.get("Gemini_api")
 APOLLO_API_URL = "https://api.apollo.io/api/v1/organizations/enrich"
 knowldge_graph_key = os.environ.get("google_cloud") 
@@ -42,7 +56,7 @@ over_pass_url = "https://overpass-api.de/api/interpreter"
 industry_tag_dict = {
     "Chemical": {
         "man_made": "works",
-        "industrial": ["chemical", "refinery", "petroleum_terminal", "gas_plant", "gas_storage", "oil_mill"],
+        "industrial": ["chemical", "refinery", "petroleum_terminal", "gas_storage", "oil_mill"],
         "product": ["chemicals", "petrochemicals"],
         "landuse": "industrial"
     },
@@ -56,18 +70,18 @@ industry_tag_dict = {
         "man_made": "works",
         "landuse": "industrial",
         "product": ["packaging", "consumer_goods"],
-        "industrial": ["logistics", "storage"]
+        "industrial": ["logistics", "storage", "warehouse", "refrigerated_warehouse"]
     },
     "Pharma":{
         "man_made": "works",
         "landuse": "industrial",
-        "product": ["pharmaceuticals"],
+        "product": ["pharmaceuticals", "biologics"],
         "industrial": ["chemical"]
     },
     "Automotive":{
         "man_made": "works",
         "landuse": "industrial",
-        "product": ["auto_parts"],
+        "product": ["auto_parts", "vehicles"],
         "industrial": ["automotive_parts", "machine_shop"]
     },
     "Plastic_rubber":{
@@ -76,19 +90,24 @@ industry_tag_dict = {
         "product": ["rubber"],
         "industrial": ["plastic_processing"]
     },
-    # "paper":{
-    #     "man_made": "works",
-    #     "landuse": "industrial",
-    #     "product": ["rubber"],
-    #     "industrial": ["paper_mill", "paper"]
-    # },
+    "paper":{
+        "man_made": "works",
+        "landuse": "industrial",
+        "product": ["rubber"],
+        "industrial": ["paper_mill", "paper"]
+    },
     "equipment":{
         "man_made": "works",
         "landuse": "industrial",
         "product": ["machinery", "electronics"],
         "industrial": ["warehouse"]
+    },
+    "Machinery":{
+        "man_made": "works",
+        "landuse": "industrial",
+        "product": ["machinery"],
+        "industrial": ["machine_shop"]
     }
-    # "Machinery"
 }
 
 def get_OSM_data(bbox, Reworld_fac_name):
@@ -101,7 +120,7 @@ def get_OSM_data(bbox, Reworld_fac_name):
         man_made = values["man_made"]
         landuse = values["landuse"]
 
-        print(f"Searching for mainindustry:{main_industry}")
+        logger.info(f"Searching for mainindustry:{main_industry}")
         for industry in industries:
             for product in products:
                 tag_combo = f"{industry}|{product}"
@@ -121,13 +140,13 @@ def get_OSM_data(bbox, Reworld_fac_name):
                 response = requests.post(over_pass_url, data=query)
                 if response.status_code != 200:
                     logger.error(f"Request failed for {tag_combo} with code {response.status_code}")
-                    print(f"Request failed for {tag_combo} with code {response.status_code}")
+                    logger.info(f"Request failed for {tag_combo} with code {response.status_code}")
                     continue
-                print(f"Request Fetched for {tag_combo} with code {response.status_code}")
+                logger.info(f"Request Fetched for {tag_combo} with code {response.status_code}")
                 logger.info(f"Request Fetched for {tag_combo} with code {response.status_code}")
                 data = response.json()
 
-                # print("Fetched results data", data.get("elements", []))
+                # logger.info("Fetched results data", data.get("elements", []))
 
                 for element in data.get("elements", []):
                     tags = element.get("tags", {})
@@ -156,57 +175,222 @@ def get_OSM_data(bbox, Reworld_fac_name):
     df = pd.DataFrame(results)
     # output_path = os.path.join(os.getcwd(), "Reworld_OSM_Chemical_Facilities.csv")
     # df.to_csv(output_path, index=False)
-    # print(f"✅ Saved {len(df)} facilities to: {output_path}")
-    print(df.head())
+    # logger.info(f"✅ Saved {len(df)} facilities to: {output_path}")
+    logger.info(df.head())
     return df
 
 
 
 
-def get_company_names(df: pd.DataFrame):
+# def get_company_names(df: pd.DataFrame):
 
-    list_f = df['Factory Name'].to_list()
+#     list_f = df['Factory Name'].to_list()
 
     
-    prompt = \
-    f"""
-    You are an industrial data assistant. Given the name of a facility or factory, try to guess the name of its parent company. If you are unsure, return "N/A".
-    Return the output as a list.
-    example output: [company 1, conpany 2, company3]
+#     prompt =f"""
+#         You are an industrial data assistant. You will be given a list of factory or facility names. The list contains **{len(list_f)} items**.
 
-    Here is the list of factories below:
-    {list_f}
-    """
+#         Your task is to infer the most likely **parent company name** for each factory.
 
-    print(df.shape[0] == len(list_f))
+#         Rules:
+#         1. Your response **must be a Python list** with the **same number of items** as the input.
+#         2. Each output item must correspond **exactly in order** to the factory name at the same index.
+#         3. If you are not sure of the parent company, return "N/A" for that item.
+#         4. Do not add explanations, newlines, or anything outside the list.
 
-    # client = genai.Client(api_key=gemini_api_key)
+#         Factory names:
+#         {list_f}
+
+#         Output:
+#     """
+
+#     logger.info(df.shape[0] == len(list_f))
+
+#     # client = genai.Client(api_key=gemini_api_key)
+#     try:
+#         response = gemini_model.generate_content(prompt)
+
+#         match = re.search(r"\[.*?\]", response.text, re.DOTALL)
+#         if match:
+#             list_string = match.group(0)
+#             import ast
+#             company_list = ast.literal_eval(list_string)
+#             logger.info("company_list Found")
+#         else:
+#             logger.info("No list found.")
+
+#         if (df.shape[0] != len(company_list)):
+#             logger.error(f"Company List length {len(company_list)} not same as Dataframe size {df.shape[0]}")
+#             return pd.DataFrame()
+    
+#         logger.info(f"Company List length {len(company_list)} same as Dataframe size {df.shape[0]}")
+#         df["Company name"] = company_list
+
+#         # df.to_csv("Reworld_OSM_Chemical_FacilitiesV1.csv", index=False)
+#         return df
+#     except Exception as e:
+#         logger.error("Failed to fetch data from Gemini", e)
+#         logger.info("Failed to fetch data from Gemini", e)
+#         return pd.DataFrame()
+
+
+def get_company_names(df: pd.DataFrame):
+    import math
+    import pandas as pd
+    
+    # Input validation
+    if df is None or df.empty:
+        logger.warning("Empty or None dataframe provided")
+        return pd.DataFrame()
+    
+    if 'Factory Name' not in df.columns:
+        logger.error("'Factory Name' column not found in dataframe")
+        return df  # Return original df without modification
+    
+    chunk_size = 100
+    
+    # If dataframe is small enough, process normally
+    if len(df) <= chunk_size:
+        return process_single_chunk(df)
+    
+    # Process in chunks
     try:
-        response = gemini_model.generate_content(prompt)
+        chunks = math.ceil(len(df) / chunk_size)
+        result_df = pd.DataFrame()
+        failed_chunks = []
+        
+        logger.info(f"Processing {len(df)} rows in {chunks} chunks of {chunk_size}")
+        
+        for i in range(chunks):
+            try:
+                start_idx = i * chunk_size
+                end_idx = min((i + 1) * chunk_size, len(df))
+                
+                # Get chunk with error handling
+                chunk_df = df.iloc[start_idx:end_idx].copy()
+                logger.info(f"Processing chunk {i+1}/{chunks}: rows {start_idx}-{end_idx-1}")
+                
+                # Process the chunk
+                processed_chunk = process_single_chunk(chunk_df)
+                
+                # Check if processing was successful
+                if processed_chunk is not None and not processed_chunk.empty:
+                    # Ensure result_df has same structure as processed_chunk
+                    if result_df.empty:
+                        result_df = processed_chunk
+                    else:
+                        result_df = pd.concat([result_df, processed_chunk], ignore_index=True)
+                    logger.info(f"Successfully processed chunk {i+1}")
+                else:
+                    logger.warning(f"Chunk {i+1} returned empty result")
+                    failed_chunks.append(i+1)
+                    
+            except Exception as chunk_error:
+                logger.error(f"Error processing chunk {i+1}: {str(chunk_error)}")
+                failed_chunks.append(i+1)
+                continue
+        
+        # Log summary
+        if failed_chunks:
+            logger.warning(f"Failed to process {len(failed_chunks)} chunks: {failed_chunks}")
+        
+        processed_rows = len(result_df) if not result_df.empty else 0
+        logger.info(f"Successfully processed {processed_rows} out of {len(df)} total rows")
+        
+        # Return results even if some chunks failed
+        return result_df if not result_df.empty else pd.DataFrame()
+        
+    except Exception as main_error:
+        logger.error(f"Critical error in chunk processing: {str(main_error)}")
+        return pd.DataFrame()  # Return original dataframe if everything fails
 
-        match = re.search(r"\[.*?\]", response.text, re.DOTALL)
-        if match:
-            list_string = match.group(0)
-            import ast
-            company_list = ast.literal_eval(list_string)
-            logger.info("company_list Found")
-        else:
-            logger.info("No list found.")
 
-        if (df.shape[0] != len(company_list)):
+def process_single_chunk(df: pd.DataFrame):
+    """Crash-proof single chunk processing"""
+    try:
+        # Input validation
+        if df is None or df.empty:
+            logger.warning("Empty chunk provided to process_single_chunk")
+            return pd.DataFrame()
+        
+        if 'Factory Name' not in df.columns:
+            logger.error("'Factory Name' column missing in chunk")
+            return pd.DataFrame()
+        
+        list_f = df['Factory Name'].dropna().to_list()  # Remove NaN values
+        
+        if not list_f:
+            logger.warning("No valid factory names found in chunk")
+            return pd.DataFrame()
+        
+        prompt = f"""
+            You are an industrial data assistant. You will be given a list of factory or facility names. The list contains **{len(list_f)} items**.
+
+            Your task is to infer the most likely **parent company name** for each factory.
+
+            Rules:
+            1. Your response **must be a Python list** with the **same number of items** as the input.
+            2. Each output item must correspond **exactly in order** to the factory name at the same index.
+            3. If you are not sure of the parent company, return "N/A" for that item.
+            4. Do not add explanations, newlines, or anything outside the list.
+
+            Factory names:
+            {list_f}
+
+            Output:
+        """
+
+        logger.info(f"Processing {len(list_f)} factory names")
+
+        # API call with error handling
+        try:
+            response = gemini_model.generate_content(prompt)
+            
+            if not hasattr(response, 'text') or not response.text:
+                logger.error("No response text received from Gemini")
+                return pd.DataFrame()
+            
+        except Exception as api_error:
+            logger.error(f"API call failed: {str(api_error)}")
+            return pd.DataFrame()
+
+        # Parse response with error handling
+        try:
+            import re
+            match = re.search(r"\[.*?\]", response.text, re.DOTALL)
+            
+            if match:
+                list_string = match.group(0)
+                import ast
+                company_list = ast.literal_eval(list_string)
+                logger.info("Company list successfully parsed")
+            else:
+                logger.warning("No valid list found in response")
+                return pd.DataFrame()
+                
+        except Exception as parse_error:
+            logger.error(f"Failed to parse response: {str(parse_error)}")
+            return pd.DataFrame()
+
+        # Validate response length
+        if len(company_list) != df.shape[0]:
+            logger.error(f"Company list length {len(company_list)} doesn't match dataframe size {df.shape[0]}")
             return pd.DataFrame()
     
-
-        df["Company name"] = company_list
-
-        # df.to_csv("Reworld_OSM_Chemical_FacilitiesV1.csv", index=False)
-        return df
-    except Exception as e:
-        logger.error("Failed to fetch data from Gemini", e)
-        print("Failed to fetch data from Gemini", e)
+        # Add company names to dataframe
+        try:
+            df_copy = df.copy()
+            df_copy["Company name"] = company_list
+            logger.info(f"Successfully added company names to {len(df_copy)} rows")
+            return df_copy
+            
+        except Exception as assignment_error:
+            logger.error(f"Failed to assign company names: {str(assignment_error)}")
+            return pd.DataFrame()
+        
+    except Exception as general_error:
+        logger.error(f"Unexpected error in process_single_chunk: {str(general_error)}")
         return pd.DataFrame()
-
-
 
 
 def enrich_company_names_via_kg(
@@ -273,7 +457,7 @@ def enrich_company_names_via_kg(
 
     # df.to_csv(output_csv_path, index=False)
     return df
-    # print(f"\n✅ Done! Enriched data saved to: {output_csv_path}")
+    # logger.info(f"\n✅ Done! Enriched data saved to: {output_csv_path}")
 
 
 
@@ -363,7 +547,7 @@ def enrich_domains_via_apollo(
     available_cols = [col for col in final_columns if col in df.columns]
     return df[available_cols]
     # df[available_cols].to_csv(output_csv_path, index=False)
-    # print(f"\n✅ Final enriched data saved to: {output_csv_path}")
+    # logger.info(f"\n✅ Final enriched data saved to: {output_csv_path}")
 
 
 
@@ -400,6 +584,9 @@ def push_df_to_db(df: pd.DataFrame, table_name: str = "OSM_enhanced_data"):
         df["owned_by_org"] = df["owned_by_org"].apply(
             lambda x: json.dumps(x) if isinstance(x, dict) else None
         )
+    
+    # Replace NaNs with None
+    df = df.where(pd.notnull(df), None)
 
     # Define the columns to insert
     columns = [
@@ -429,17 +616,6 @@ def push_df_to_db(df: pd.DataFrame, table_name: str = "OSM_enhanced_data"):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 # Example bounding box (Houston area)
 bbox = {
     "xmin": -96.90,
@@ -455,12 +631,12 @@ def Enhance_OSM_Data(bbox, Reworld_fac_name):
     df = get_OSM_data(bbox, Reworld_fac_name)
 
     if df.empty:
-        # print("No data found")
+        logger.info("No data found")
         return 
-    # print("--------------------- VALUE OF DF -------------------\n")
-    # print(df.columns)
-    # print("------------------------------------------------------\n")
-
+    # logger.info("--------------------- VALUE OF DF -------------------\n")
+    # logger.info(df.columns)
+    # logger.info("------------------------------------------------------\n")
+    logger.info("OSM Data Found")
 
 
     df1 = get_company_names(df)
@@ -468,25 +644,25 @@ def Enhance_OSM_Data(bbox, Reworld_fac_name):
     if df1.empty:
         return
 
-    # print("--------------------- VALUE OF DF1 -------------------\n")
-    # print(df1.columns)
-    # print("------------------------------------------------------\n")
+    logger.info("--------------------- VALUE OF DF1 -------------------\n")
+    logger.info(f"VALUE OF DF1 {df1.columns}")
+    logger.info("------------------------------------------------------\n")
 
     df2 = enrich_company_names_via_kg(df1)
 
-    # print("--------------------- VALUE OF DF2 -------------------\n")
-    # print(df2.columns)
-    # print("------------------------------------------------------\n")
+    logger.info("--------------------- VALUE OF DF2 -------------------\n")
+    logger.info(f"VALUE OF DF2 {df2.columns}")
+    logger.info("------------------------------------------------------\n")
 
     df3 = enrich_domains_via_apollo(df2)
 
 
-    # print("--------------------- VALUE OF DF3 -------------------\n")
-    # print(df3.columns)
-    # print("------------------------------------------------------\n")
+    # logger.info("--------------------- VALUE OF DF3 -------------------\n")
+    logger.info(f"VALUE OF DF3 {df3.columns}")
+    # logger.info("------------------------------------------------------\n")
 
-    df3.to_csv("TEST_OSM_ALL_INUSTRY.csv", index=False)
-    # push_df_to_db(df3)
+    # df3.to_csv("TEST_OSM_ALL_INUSTRY.csv", index=False)
+    push_df_to_db(df3)
 
 
 

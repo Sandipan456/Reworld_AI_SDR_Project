@@ -17,8 +17,8 @@ services:
   app:
     build: .
     container_name: enrichment_engine
-    depends_on:
-      - postgres
+    # depends_on:
+    #   - postgres
     environment:
       DB_HOST: postgres  # Use service name, not localhost
       DB_PORT: 5432

@@ -5,3 +5,4 @@ SELECT
     NULL::JSONB   AS nearby_landfills_json
 FROM frs_master f
 WHERE false; -- This creates the structure without data
+

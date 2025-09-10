@@ -1,8 +1,10 @@
+
+
 INSERT INTO frs_master_data (
     fac_long, fac_lat, registry_id, on_site_release_total, off_site_release_total,
     off_site_treated_total, rcra_fac_lat, rcra_fac_long, production_waste, total_releases,
-    tri_flag, sdwis_flag, ghg_flag, air_ids, npdes_ids, rcra_ids, tri_ids, sdwa_ids, ghg_ids,
-    fac_name_norm, trifd, primary_naics, chemical, parent_co_name, standard_parent_co_name,
+    tri_flag, sdwis_flag, ghg_flag, air_ids, npdes_ids, rcra_ids, tri_ids, sdwa_ids, ghg_ids, 
+    trifd, primary_naics, chemical, parent_co_name, standard_parent_co_name,
     unit_of_measure, rcra_registry_id, rcr_status, rcr_name, rcr_city, rcr_state, rcr_zip,
     rcra_universe, rcra_naics, industry_sector, fac_name, fac_street, fac_city, fac_state,
     fac_zip, fac_county, fac_fips_code, fac_naics_codes, fac_sic_codes, air_flag, rcra_flag,
@@ -12,7 +14,7 @@ SELECT
     fac_long, fac_lat, registry_id, on_site_release_total, off_site_release_total,
     off_site_treated_total, rcra_fac_lat, rcra_fac_long, production_waste, total_releases,
     tri_flag, sdwis_flag, ghg_flag, air_ids, npdes_ids, rcra_ids, tri_ids, sdwa_ids, ghg_ids,
-    fac_name_norm, trifd, primary_naics, chemical, parent_co_name, standard_parent_co_name,
+    trifd, primary_naics, chemical, parent_co_name, standard_parent_co_name,
     unit_of_measure, rcra_registry_id, rcr_status, rcr_name, rcr_city, rcr_state, rcr_zip,
     rcra_universe, rcra_naics, industry_sector, fac_name, fac_street, fac_city, fac_state,
     fac_zip, fac_county, fac_fips_code, fac_naics_codes, fac_sic_codes, air_flag, rcra_flag,
@@ -38,7 +40,6 @@ ON CONFLICT (registry_id) DO UPDATE SET
     tri_ids = EXCLUDED.tri_ids,
     sdwa_ids = EXCLUDED.sdwa_ids,
     ghg_ids = EXCLUDED.ghg_ids,
-    fac_name_norm = EXCLUDED.fac_name_norm,
     trifd = EXCLUDED.trifd,
     primary_naics = EXCLUDED.primary_naics,
     chemical = EXCLUDED.chemical,
@@ -65,3 +66,6 @@ ON CONFLICT (registry_id) DO UPDATE SET
     fac_sic_codes = EXCLUDED.fac_sic_codes,
     air_flag = EXCLUDED.air_flag,
     rcra_flag = EXCLUDED.rcra_flag;
+
+
+

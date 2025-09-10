@@ -1,4 +1,13 @@
 from database.db_utils.connection import get_connection
+import logging
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger(__name__)
+
 
 facility_table = \
 """
@@ -212,12 +221,15 @@ def create_tables():
     conn = get_connection()
     cur = conn.cursor()
 
+    logger.info("Creating tables...")
     cur.execute(facility_table)
     cur.execute(HIFLD_landfills)
     # cur.execute(RCRA_DATA)
     cur.execute(rcra_table)
     cur.execute(TRI_DATA)
     cur.execute(OSM_Enhanced_Data)
+    logger.info("Tables Created")
+
 
     conn.commit()
     cur.close()

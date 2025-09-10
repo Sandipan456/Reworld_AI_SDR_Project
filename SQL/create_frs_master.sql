@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS frs_master;
-
 CREATE TABLE frs_master AS
 SELECT DISTINCT ON (f.registry_id) 
     f.*, 
@@ -13,3 +11,5 @@ FROM facilities f
 LEFT JOIN tri_facilities tf ON f.tri_ids = tf.trifd
 LEFT JOIN rcra_facilities rf ON f.registry_id::text = rf.registry_id::text
 ORDER BY f.registry_id, tf.trifd, rf.registry_id;
+
+

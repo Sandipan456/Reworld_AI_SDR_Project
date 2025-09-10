@@ -1,5 +1,5 @@
 import pandas as pd
-from database.db_utils.connection import get_sqlalchemy_engine
+from database.db_utils.connection import get_engine
 from dotenv import load_dotenv
 import os
 import requests
@@ -33,35 +33,43 @@ gemini_model = genai.GenerativeModel(model_name="models/gemini-1.5-flash-latest"
 
 
 
-conn = get_sqlalchemy_engine()
+conn = get_engine()
 
+def load_facilities_in_chunks(conn, chunk_size=100):
+    """
+    Generator to load facility data from frs_master_data in chunks.
+    Checks if enhanced_data_2 exists; if it does, filters registry_ids.
+    """
+    check_table_query = """
+        SELECT EXISTS (
+            SELECT FROM information_schema.tables 
+            WHERE table_schema = 'public' AND table_name = 'enhanced_data_2'
+        );
+    """
+    table_exists = pd.read_sql(check_table_query, conn).iloc[0, 0]
 
-def load_facilites_in_chunks(conn, chunk_size = 100):
-    """
-    Generator to load facility data in chunks from frs_with_landfills table.
-    Only loads registry_id and fac_name.
-    """
+    if table_exists:
+        base_query = """
+            SELECT *
+            FROM frs_master_data
+            WHERE registry_id NOT IN (
+                SELECT DISTINCT registry_id FROM enhanced_data_2
+            )
+        """
+    else:
+        base_query = """
+            SELECT *
+            FROM frs_master_data
+        """
 
-    query = """
-    SELECT *
-    FROM frs_master_data
-    WHERE registry_id NOT IN (
-        SELECT DISTINCT registry_id FROM enhanced_data_2
-    )
-    """
     offset = 0
-
-
     while True:
-        chunk_query = f"{query} OFFSET {offset} LIMIT {chunk_size}"
+        chunk_query = f"{base_query} OFFSET {offset} LIMIT {chunk_size}"
         df = pd.read_sql(chunk_query, conn)
-
         if df.empty:
             break
-        
         yield df
         offset += chunk_size
-
 
 
 
@@ -105,7 +113,7 @@ Here is the list of factories below:
     
     except Exception as e:
         logger.error(f"[Gemini Error] {e}")
-        pd.DataFrame()
+        return pd.DataFrame()
 
 
 
@@ -217,7 +225,7 @@ def get_info_from_apollo(df: pd.DataFrame) -> pd.DataFrame:
         domain = extract_domain(url)
 
         if not domain:
-            logger.info("❌ Domain missing for:", row.get("parent_company_name_kg"))
+            logger.info(f"❌ Domain missing for: {row.get("parent_company_name_kg")}")
             for key in apollo_results:
                 apollo_results[key].append(None if key != "owned_by_org" else {})
             continue
@@ -283,7 +291,7 @@ def push_to_postgres(df: pd.DataFrame, conn, table_name: str = "enhanced_data_2"
 def run_facility_enrichment_pipeline_ed2(chunk_size=100):
     all_enriched = []
 
-    for chunk_df in load_facilites_in_chunks(conn, chunk_size=chunk_size):
+    for chunk_df in load_facilities_in_chunks(conn, chunk_size=chunk_size):
         logger.info(f"\n Processing chunk of {len(chunk_df)} rows...")
 
         # Step 1: Gemini inference
